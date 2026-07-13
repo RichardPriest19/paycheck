@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Ledger — UK Salary Breakdown</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #F6F1E5;
+    --paper-line: #DCD4BE;
+    --ink: #1B2A41;
+    --ink-soft: #4A5A70;
+    --brass: #9C7A33;
+    --brass-light: #EFE4C6;
+    --tax-red: #7A2E2A;
+    --tax-red-light: #F1DEDA;
+    --net-green: #2F5A45;
+    --net-green-light: #E1EBE3;
+    --row-alt: #EFE9D9;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-size:16px;
+    line-height:1.5;
+    background-image:
+      repeating-linear-gradient(180deg, transparent, transparent 38px, var(--paper-line) 38px, var(--paper-line) 39px);
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:48px 24px 96px;}
+  header{margin-bottom:44px;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--brass);
+    margin:0 0 10px;
+  }
+  h1{
+    font-family:'Spectral', serif;
+    font-weight:600;
+    font-size:40px;
+    margin:0 0 12px;
+    letter-spacing:-0.01em;
+  }
+  header p{
+    color:var(--ink-soft);
+    max-width:560px;
+    margin:0;
+    font-size:15px;
+  }
+  .ledger-card{
+    background:#FFFEF9;
+    border:1px solid var(--paper-line);
+    border-radius:4px;
+    box-shadow:0 1px 0 var(--paper-line);
+    padding:32px;
+    margin-bottom:40px;
+  }
+  .input-row{
+    display:flex;
+    gap:24px;
+    align-items:flex-end;
+    flex-wrap:wrap;
+    margin-bottom:8px;
+  }
+  .field{flex:1;min-width:200px;}
+  label{
+    display:block;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:8px;
+  }
+  .amount-input-group{
+    display:flex;
+    align-items:center;
+    border-bottom:2px solid var(--ink);
+    padding-bottom:6px;
+  }
+  .amount-input-group span{
+    font-family:'Spectral', serif;
+    font-size:24px;
+    color:var(--brass);
+    margin-right:6px;
+  }
+  input[type=number]{
+    border:none;
+    background:transparent;
+    font-family:'JetBrains Mono', monospace;
+    font-size:24px;
+    font-weight:500;
+    color:var(--ink);
+    width:100%;
+    outline:none;
+    padding:0;
+  }
+  input[type=number]::-webkit-outer-spin-button,
+  input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+  .toggle-group{
+    display:flex;
+    border:1px solid var(--ink);
+    border-radius:3px;
+    overflow:hidden;
+    height:42px;
+  }
+  .toggle-group button{
+    flex:1;
+    border:none;
+    background:#FFFEF9;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:background 0.15s, color 0.15s;
+  }
+  .toggle-group button.active{
+    background:var(--ink);
+    color:var(--paper);
+  }
+  .toggle-group button:not(:last-child){border-right:1px solid var(--ink);}
+  .note{
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-top:14px;
+    font-style:italic;
+  }
+
+  .stamp{
+    display:inline-block;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--brass);
+    border:1px solid var(--brass);
+    border-radius:3px;
+    padding:3px 8px;
+    transform:rotate(-1.5deg);
+    margin-bottom:18px;
+  }
+
+  .breakdown-grid{
+    display:grid;
+    grid-template-columns: 90px repeat(4, 1fr);
+    gap:1px;
+    background:var(--paper-line);
+    border:1px solid var(--paper-line);
+    border-radius:3px;
+    overflow:hidden;
+  }
+  .breakdown-grid .cell{
+    background:#FFFEF9;
+    padding:14px 12px;
+  }
+  .breakdown-grid .head{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    text-align:right;
+  }
+  .breakdown-grid .head.row-label{text-align:left;}
+  .breakdown-grid .row-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    display:flex;
+    align-items:center;
+  }
+  .breakdown-grid .num{
+    font-family:'JetBrains Mono', monospace;
+    font-size:16px;
+    text-align:right;
+    font-weight:500;
+  }
+  .breakdown-grid .gross-row .num{color:var(--ink);}
+  .breakdown-grid .tax-row .num{color:var(--tax-red);}
+  .breakdown-grid .ni-row .num{color:var(--tax-red);}
+  .breakdown-grid .net-row .num{color:var(--net-green);font-weight:600;}
+  .breakdown-grid .net-row{background:var(--net-green-light) !important;}
+  .breakdown-grid .net-row .row-label{color:var(--net-green);}
+
+  .deduction-summary{
+    display:flex;
+    gap:32px;
+    margin-top:24px;
+    padding-top:20px;
+    border-top:1px dashed var(--paper-line);
+    flex-wrap:wrap;
+  }
+  .deduction-summary div{flex:1;min-width:140px;}
+  .deduction-summary .d-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:4px;
+  }
+  .deduction-summary .d-value{
+    font-family:'Spectral', serif;
+    font-size:22px;
+    font-weight:600;
+  }
+  .d-tax .d-value{color:var(--tax-red);}
+  .d-ni .d-value{color:var(--tax-red);}
+  .d-rate .d-value{color:var(--brass);}
+  .d-net .d-value{color:var(--net-green);}
+
+  h2.section-title{
+    font-family:'Spectral', serif;
+    font-size:22px;
+    font-weight:600;
+    margin:0 0 6px;
+  }
+  .section-sub{
+    color:var(--ink-soft);
+    font-size:13.5px;
+    margin:0 0 18px;
+  }
+
+  table.ladder{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13.5px;
+  }
+  table.ladder th{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    text-align:right;
+    padding:8px 10px;
+    border-bottom:1px solid var(--ink);
+  }
+  table.ladder th:first-child{text-align:left;}
+  table.ladder td{
+    font-family:'JetBrains Mono', monospace;
+    text-align:right;
+    padding:8px 10px;
+    border-bottom:1px solid var(--paper-line);
+  }
+  table.ladder td:first-child{
+    text-align:left;
+    color:var(--ink-soft);
+  }
+  table.ladder tr.current{
+    background:var(--brass-light);
+  }
+  table.ladder tr.current td{
+    font-weight:700;
+    color:var(--ink);
+  }
+  table.ladder tr.current td:first-child::after{
+    content:" ◂ you";
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    color:var(--brass);
+    font-weight:700;
+  }
+  table.ladder td.net{color:var(--net-green);}
+  table.ladder td.ded{color:var(--tax-red);}
+
+  footer{
+    margin-top:48px;
+    font-size:12px;
+    color:var(--ink-soft);
+    text-align:center;
+  }
+
+  .ir35-info{
+    margin-bottom:32px;
+  }
+  .ir35-info-inner{
+    border-left:3px solid var(--brass);
+    background:var(--brass-light);
+    padding:16px 20px;
+    border-radius:0 3px 3px 0;
+  }
+  .ir35-badge{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--brass);
+    font-weight:700;
+    margin-bottom:8px;
+  }
+  .ir35-info-inner p{
+    margin:0;
+    font-size:13.5px;
+    color:var(--ink);
+    line-height:1.6;
+  }
+
+  @media (max-width:640px){
+    .breakdown-grid{grid-template-columns: 70px repeat(4, 1fr);font-size:13px;}
+    .breakdown-grid .num{font-size:13px;}
+    h1{font-size:30px;}
+    table.ladder{font-size:12px;}
+    table.ladder th, table.ladder td{padding:6px 5px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">UK Tax Year 2025/26 — England, Wales &amp; Northern Ireland rates</p>
+    <h1>The Ledger</h1>
+    <p>Enter a salary and see exactly what reaches your pocket — daily, weekly, monthly, annually — before and after Income Tax and National Insurance. Then see how the picture changes £2,500 at a time, above and below.</p>
+  </header>
+
+  <div class="ledger-card">
+    <div class="input-row">
+      <div class="field">
+        <label for="salaryInput">Salary amount</label>
+        <div class="amount-input-group">
+          <span>£</span>
+          <input type="number" id="salaryInput" value="45000" min="0" step="100">
+        </div>
+      </div>
+      <div class="field" style="flex:0 0 220px;">
+        <label>This figure is</label>
+        <div class="toggle-group">
+          <button id="btnAnnual" class="active">Annual</button>
+          <button id="btnDaily">Daily</button>
+        </div>
+      </div>
+      <div class="field" style="flex:0 0 180px;">
+        <label for="daysPerWeekInput">Days worked / week</label>
+        <div class="amount-input-group">
+          <input type="number" id="daysPerWeekInput" value="5" min="1" max="7" step="1">
+        </div>
+      </div>
+      <div class="field" style="flex:0 0 240px;">
+        <label>IR35 status</label>
+        <div class="toggle-group">
+          <button id="btnInside" class="active">Inside IR35</button>
+          <button id="btnOutside">Outside IR35</button>
+        </div>
+      </div>
+    </div>
+    <p class="note" id="daysNote">Daily rate is based on a 5-day working week — 260 working days a year — used to convert to an annual salary.</p>
+  </div>
+
+  <div class="ir35-info" id="ir35Info" style="display:none;">
+    <div class="ir35-info-inner">
+      <div class="ir35-badge">Outside IR35 — Ltd Company Model</div>
+      <p>Calculations assume you operate via a Personal Service Company (PSC) using the standard tax-efficient structure: a <strong>director salary of £12,570</strong> (within the personal allowance, so no income tax or employee NI), with the remaining profit extracted as <strong>dividends</strong>. The company also pays <strong>employer's NI</strong> on salary above the secondary threshold (£9,100) and a typical <strong>accountancy fee of £1,500/yr</strong>. Corporation Tax uses 2025/26 rates (19% small profits, 25% main rate, marginal relief between £50k–£250k). Dividend tax is applied after the £500 dividend allowance.</p>
+    </div>
+  </div>
+
+  <div class="ledger-card">
+    <div class="stamp" id="stampLine">ANNUAL GROSS — £45,000</div>
+    <h2 class="section-title">Your breakdown</h2>
+    <p class="section-sub">Before and after tax, split across the periods that matter day to day.</p>
+
+    <div class="breakdown-grid">
+      <div class="cell head row-label">Period</div>
+      <div class="cell head">Gross</div>
+      <div class="cell head" id="hd-col2">Income tax</div>
+      <div class="cell head" id="hd-col3">Nat. Insurance</div>
+      <div class="cell head">Net (take‑home)</div>
+
+      <div class="cell row-label">Annual</div>
+      <div class="cell num gross-row" id="g-annual"></div>
+      <div class="cell num tax-row" id="t-annual"></div>
+      <div class="cell num ni-row" id="n-annual"></div>
+      <div class="cell num net-row" id="net-annual"></div>
+
+      <div class="cell row-label">Monthly</div>
+      <div class="cell num gross-row" id="g-monthly"></div>
+      <div class="cell num tax-row" id="t-monthly"></div>
+      <div class="cell num ni-row" id="n-monthly"></div>
+      <div class="cell num net-row" id="net-monthly"></div>
+
+      <div class="cell row-label">Weekly</div>
+      <div class="cell num gross-row" id="g-weekly"></div>
+      <div class="cell num tax-row" id="t-weekly"></div>
+      <div class="cell num ni-row" id="n-weekly"></div>
+      <div class="cell num net-row" id="net-weekly"></div>
+
+      <div class="cell row-label">Daily</div>
+      <div class="cell num gross-row" id="g-daily"></div>
+      <div class="cell num tax-row" id="t-daily"></div>
+      <div class="cell num ni-row" id="n-daily"></div>
+      <div class="cell num net-row" id="net-daily"></div>
+    </div>
+
+    <div class="deduction-summary">
+      <div class="d-tax">
+        <div class="d-label" id="sum-tax-label">Income tax (yr)</div>
+        <div class="d-value" id="sum-tax"></div>
+      </div>
+      <div class="d-ni">
+        <div class="d-label" id="sum-ni-label">National Insurance (yr)</div>
+        <div class="d-value" id="sum-ni"></div>
+      </div>
+      <div class="d-rate">
+        <div class="d-label">Effective rate</div>
+        <div class="d-value" id="sum-rate"></div>
+      </div>
+      <div class="d-net">
+        <div class="d-label">Take‑home (yr)</div>
+        <div class="d-value" id="sum-net"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ledger-card">
+    <h2 class="section-title">The ladder</h2>
+    <p class="section-sub" id="ladderSub">Annual salaries in £2,500 steps around your figure, with take‑home pay at each rung.</p>
+    <div style="overflow-x:auto;">
+      <table class="ladder">
+        <thead>
+          <tr>
+            <th id="ladderFirstHead">Annual gross</th>
+            <th id="ladderCol2Head">Income tax</th>
+            <th id="ladderCol3Head">NI</th>
+            <th>Annual net</th>
+            <th>Monthly net</th>
+            <th>Effective rate</th>
+          </tr>
+        </thead>
+        <tbody id="ladderBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    Inside IR35: 2025/26 rUK Income Tax bands and Class 1 employee NI rates. Standard tax code assumed. Outside IR35: Ltd company model — £12,570 director salary, £1,500 accountancy, all remaining profit taken as dividends; Corporation Tax at 2025/26 rates. Both: Scotland uses different income tax bands. No student loan, pension, or other deductions modelled.
+  </footer>
+
+</div>
+
+<script>
+// ── Constants ────────────────────────────────────────────────
+const PERSONAL_ALLOWANCE   = 12570;
+const BASIC_RATE_LIMIT     = 50270;
+const HIGHER_RATE_LIMIT    = 125140;
+const NI_PRIMARY_THRESHOLD = 12570;
+const NI_UPPER_LIMIT       = 50270;
+
+// Outside IR35 constants
+const OUTSIDE_SALARY            = 12570;   // optimal director salary
+const EMPLOYER_NI_SECONDARY     = 9100;    // employer NI secondary threshold
+const EMPLOYER_NI_RATE          = 0.138;
+const OUTSIDE_ACCOUNTANCY       = 1500;    // typical annual accountancy fee
+const CORP_TAX_LOWER_LIMIT      = 50000;
+const CORP_TAX_UPPER_LIMIT      = 250000;
+const DIVIDEND_ALLOWANCE        = 500;
+const DIV_BASIC_RATE            = 0.0875;
+const DIV_HIGHER_RATE           = 0.3375;
+const DIV_ADDITIONAL_RATE       = 0.3935;
+
+// ── Helpers ──────────────────────────────────────────────────
+function gbp(n){ return '£' + Math.round(n).toLocaleString('en-GB'); }
+
+// ── Inside IR35 calculations ─────────────────────────────────
+function calcIncomeTax(gross){
+  let allowance = PERSONAL_ALLOWANCE;
+  if (gross > 100000) allowance = Math.max(0, PERSONAL_ALLOWANCE - Math.floor((gross - 100000) / 2));
+  const basicTop  = allowance + (BASIC_RATE_LIMIT - PERSONAL_ALLOWANCE);
+  const higherTop = HIGHER_RATE_LIMIT;
+  let tax = 0;
+  if (gross <= allowance) return 0;
+  tax += Math.max(0, Math.min(gross, basicTop)  - allowance)  * 0.20;
+  if (gross > basicTop)  tax += Math.max(0, Math.min(gross, higherTop) - basicTop)  * 0.40;
+  if (gross > higherTop) tax += (gross - higherTop) * 0.45;
+  return tax;
+}
+
+function calcNI(gross){
+  if (gross <= NI_PRIMARY_THRESHOLD) return 0;
+  let ni = Math.min(gross, NI_UPPER_LIMIT) - NI_PRIMARY_THRESHOLD;
+  ni *= 0.08;
+  if (gross > NI_UPPER_LIMIT) ni += (gross - NI_UPPER_LIMIT) * 0.02;
+  return ni;
+}
+
+function breakdownInside(annualGross){
+  const tax = calcIncomeTax(annualGross);
+  const ni  = calcNI(annualGross);
+  const net = annualGross - tax - ni;
+  return { gross: annualGross, tax, ni, net,
+    rate: annualGross > 0 ? (tax + ni) / annualGross : 0 };
+}
+
+// ── Outside IR35 calculations ────────────────────────────────
+function calcCorpTax(profit){
+  if (profit <= 0) return 0;
+  if (profit <= CORP_TAX_LOWER_LIMIT)  return profit * 0.19;
+  if (profit >= CORP_TAX_UPPER_LIMIT)  return profit * 0.25;
+  // Marginal relief
+  return profit * 0.25 - (CORP_TAX_UPPER_LIMIT - profit) * (3 / 200);
+}
+
+function calcDividendTax(dividends){
+  if (dividends <= DIVIDEND_ALLOWANCE) return 0;
+  const taxable    = dividends - DIVIDEND_ALLOWANCE;
+  const basicBand  = (BASIC_RATE_LIMIT - OUTSIDE_SALARY) - DIVIDEND_ALLOWANCE; // £37,200
+  const higherBand = HIGHER_RATE_LIMIT - BASIC_RATE_LIMIT;                     // £74,870
+  let tax = 0, rem = taxable;
+  const inBasic  = Math.min(rem, basicBand);   tax += inBasic  * DIV_BASIC_RATE;  rem -= inBasic;
+  const inHigher = Math.min(rem, higherBand);  tax += inHigher * DIV_HIGHER_RATE; rem -= inHigher;
+  if (rem > 0) tax += rem * DIV_ADDITIONAL_RATE;
+  return tax;
+}
+
+function breakdownOutside(annualRevenue){
+  const salary     = OUTSIDE_SALARY;
+  const employerNI = Math.max(0, salary - EMPLOYER_NI_SECONDARY) * EMPLOYER_NI_RATE;
+  const compProfit = Math.max(0, annualRevenue - salary - employerNI - OUTSIDE_ACCOUNTANCY);
+  const corpTax    = calcCorpTax(compProfit);
+  const dividends  = Math.max(0, compProfit - corpTax);
+  const divTax     = calcDividendTax(dividends);
+  const net        = salary + dividends - divTax;
+  const totalDed   = annualRevenue - net;
+  return { gross: annualRevenue, tax: corpTax, ni: divTax, net,
+    rate: annualRevenue > 0 ? totalDed / annualRevenue : 0 };
+}
+
+function breakdownFor(annualGross){
+  return ir35 === 'outside' ? breakdownOutside(annualGross) : breakdownInside(annualGross);
+}
+
+function periodValues(annualVal, workingDaysPerYear){
+  return { annual: annualVal, monthly: annualVal/12, weekly: annualVal/52, daily: annualVal/workingDaysPerYear };
+}
+
+// ── State ─────────────────────────────────────────────────────
+let mode  = 'annual';
+let ir35  = 'inside';
+
+// ── DOM refs ──────────────────────────────────────────────────
+const salaryInput     = document.getElementById('salaryInput');
+const daysPerWeekInput= document.getElementById('daysPerWeekInput');
+const daysNote        = document.getElementById('daysNote');
+const btnAnnual       = document.getElementById('btnAnnual');
+const btnDaily        = document.getElementById('btnDaily');
+const btnInside       = document.getElementById('btnInside');
+const btnOutside      = document.getElementById('btnOutside');
+const ir35Info        = document.getElementById('ir35Info');
+
+// ── Event listeners ───────────────────────────────────────────
+btnAnnual .addEventListener('click', () => { mode='annual';  btnAnnual.classList.add('active');  btnDaily.classList.remove('active');   render(); });
+btnDaily  .addEventListener('click', () => { mode='daily';   btnDaily.classList.add('active');   btnAnnual.classList.remove('active');  render(); });
+btnInside .addEventListener('click', () => { ir35='inside';  btnInside.classList.add('active');  btnOutside.classList.remove('active'); ir35Info.style.display='none';  render(); });
+btnOutside.addEventListener('click', () => { ir35='outside'; btnOutside.classList.add('active'); btnInside.classList.remove('active');  ir35Info.style.display='block'; render(); });
+salaryInput.addEventListener('input', render);
+daysPerWeekInput.addEventListener('input', render);
+
+// ── Helpers ───────────────────────────────────────────────────
+function getWorkingDaysPerYear(){
+  let d = parseFloat(daysPerWeekInput.value);
+  if (!d || d < 1) d = 1;
+  if (d > 7) d = 7;
+  return d * 52;
+}
+function getAnnualGross(wdpy){ 
+  const v = parseFloat(salaryInput.value) || 0;
+  return mode === 'daily' ? v * wdpy : v;
+}
+
+// ── Render ────────────────────────────────────────────────────
+function render(){
+  const wdpy = getWorkingDaysPerYear();
+  const daysPerWeek = wdpy / 52;
+  daysNote.textContent = `Daily rate is based on a ${daysPerWeek}-day working week — ${wdpy} working days a year — used to convert to an annual salary.`;
+
+  const annualGross = getAnnualGross(wdpy);
+  const b = breakdownFor(annualGross);
+
+  const outside = ir35 === 'outside';
+
+  // Update column headers
+  document.getElementById('hd-col2').textContent = outside ? 'Corp. tax'   : 'Income tax';
+  document.getElementById('hd-col3').textContent = outside ? 'Dividend tax' : 'Nat. Insurance';
+  document.getElementById('sum-tax-label').textContent = outside ? 'Corp. tax (yr)'   : 'Income tax (yr)';
+  document.getElementById('sum-ni-label').textContent  = outside ? 'Dividend tax (yr)' : 'Nat. Insurance (yr)';
+
+  // Breakdown grid values
+  const gross = periodValues(b.gross, wdpy);
+  const tax   = periodValues(b.tax,   wdpy);
+  const ni    = periodValues(b.ni,    wdpy);
+  const net   = periodValues(b.net,   wdpy);
+
+  ['annual','monthly','weekly','daily'].forEach(p => {
+    document.getElementById('g-'+p).textContent   = gbp(gross[p]);
+    document.getElementById('t-'+p).textContent   = '−' + gbp(tax[p]);
+    document.getElementById('n-'+p).textContent   = '−' + gbp(ni[p]);
+    document.getElementById('net-'+p).textContent = gbp(net[p]);
+  });
+
+  // Summary strip
+  document.getElementById('sum-tax').textContent  = gbp(b.tax);
+  document.getElementById('sum-ni').textContent   = gbp(b.ni);
+  document.getElementById('sum-rate').textContent = (b.rate * 100).toFixed(1) + '%';
+  document.getElementById('sum-net').textContent  = gbp(b.net);
+
+  // Stamp
+  document.getElementById('stampLine').textContent =
+    (mode === 'daily' ? 'DAILY RATE — ' + gbp(parseFloat(salaryInput.value)||0) + '/day — ' : '') +
+    'ANNUAL GROSS — ' + gbp(annualGross) +
+    (outside ? ' — OUTSIDE IR35' : ' — INSIDE IR35');
+
+  renderLadder(annualGross, wdpy);
+}
+
+// ── Ladder ────────────────────────────────────────────────────
+function renderLadder(currentAnnual, wdpy){
+  const tbody     = document.getElementById('ladderBody');
+  const sub       = document.getElementById('ladderSub');
+  const firstHead = document.getElementById('ladderFirstHead');
+  const col2Head  = document.getElementById('ladderCol2Head');
+  const col3Head  = document.getElementById('ladderCol3Head');
+  const outside   = ir35 === 'outside';
+  tbody.innerHTML = '';
+
+  col2Head.textContent = outside ? 'Corp. tax'   : 'Income tax';
+  col3Head.textContent = outside ? 'Dividend tax' : 'NI';
+
+  if (mode === 'daily'){
+    const currentDaily = parseFloat(salaryInput.value) || 0;
+    const baseStep = Math.round(currentDaily / 50) * 50;
+    firstHead.textContent = 'Daily rate';
+    sub.textContent = `Daily rates in £50 steps around your figure${outside ? ' (outside IR35)' : ''}, with take‑home pay at each rung.`;
+
+    for (let i = -5; i <= 5; i++){
+      const dayRate = baseStep + i * 50;
+      if (dayRate < 0) continue;
+      const b  = breakdownFor(dayRate * wdpy);
+      const tr = document.createElement('tr');
+      if (dayRate === baseStep) tr.classList.add('current');
+      tr.innerHTML = `
+        <td>${gbp(dayRate)}/day</td>
+        <td class="ded">−${gbp(b.tax)}</td>
+        <td class="ded">−${gbp(b.ni)}</td>
+        <td class="net">${gbp(b.net)}</td>
+        <td class="net">${gbp(b.net/12)}</td>
+        <td>${(b.rate*100).toFixed(1)}%</td>`;
+      tbody.appendChild(tr);
+    }
+  } else {
+    const baseStep = Math.round(currentAnnual / 2500) * 2500;
+    firstHead.textContent = 'Annual gross';
+    sub.textContent = `Annual salaries in £2,500 steps around your figure${outside ? ' (outside IR35)' : ''}, with take‑home pay at each rung.`;
+
+    for (let i = -5; i <= 5; i++){
+      const val = baseStep + i * 2500;
+      if (val < 0) continue;
+      const b  = breakdownFor(val);
+      const tr = document.createElement('tr');
+      if (val === baseStep) tr.classList.add('current');
+      tr.innerHTML = `
+        <td>${gbp(val)}</td>
+        <td class="ded">−${gbp(b.tax)}</td>
+        <td class="ded">−${gbp(b.ni)}</td>
+        <td class="net">${gbp(b.net)}</td>
+        <td class="net">${gbp(b.net/12)}</td>
+        <td>${(b.rate*100).toFixed(1)}%</td>`;
+      tbody.appendChild(tr);
+    }
+  }
+}
+
+render();
+</script>
+</body>
+</html>
