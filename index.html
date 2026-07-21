@@ -16,20 +16,20 @@
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%;background-image:repeating-linear-gradient(180deg,transparent,transparent 38px,var(--paper-line) 38px,var(--paper-line) 39px);}
-  .wrap{max-width:960px;margin:0 auto;padding:48px 24px 96px;}
+  .wrap{max-width:980px;margin:0 auto;padding:48px 24px 96px;}
 
-  /* Header */
+  /* ── Header ── */
   header{margin-bottom:40px;}
   .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass);margin-bottom:10px;}
   h1{font-family:'Spectral',serif;font-weight:600;font-size:40px;letter-spacing:-.01em;margin-bottom:12px;}
   header p{color:var(--ink-soft);max-width:580px;font-size:15px;}
 
-  /* Card */
+  /* ── Card ── */
   .card{background:#FFFEF9;border:1px solid var(--paper-line);border-radius:4px;box-shadow:0 1px 0 var(--paper-line);padding:32px;margin-bottom:28px;}
 
-  /* Inputs */
-  .input-row{display:flex;gap:20px;align-items:flex-end;flex-wrap:wrap;margin-bottom:10px;}
-  .field{flex:1;min-width:160px;}
+  /* ── Inputs ── */
+  .input-row{display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap;margin-bottom:10px;}
+  .field{flex:1;min-width:150px;}
   label{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px;}
   .agroup{display:flex;align-items:center;border-bottom:2px solid var(--ink);padding-bottom:6px;}
   .agroup span{font-family:'Spectral',serif;font-size:24px;color:var(--brass);margin-right:6px;}
@@ -38,38 +38,37 @@
   input[type=number]::placeholder{color:var(--paper-line);}
   .note{font-size:12px;color:var(--ink-soft);margin-top:12px;font-style:italic;}
 
-  /* Duration inline group */
-  .dur-group{display:flex;gap:10px;align-items:flex-end;}
-  .dur-group .agroup{flex:1;}
-  .dur-tog{flex:0 0 140px;}
-
-  /* Toggle */
+  /* ── Toggle ── */
   .tog{display:flex;border:1px solid var(--ink);border-radius:3px;overflow:hidden;height:42px;}
-  .tog button{flex:1;border:none;background:#FFFEF9;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);cursor:pointer;transition:background .15s,color .15s;padding:0 4px;}
+  .tog button{flex:1;border:none;background:#FFFEF9;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft);cursor:pointer;transition:background .15s,color .15s;padding:0 4px;}
   .tog button.active{background:var(--ink);color:var(--paper);}
   .tog button:not(:last-child){border-right:1px solid var(--ink);}
 
-  /* IR35 info */
+  /* Duration inline group */
+  .dur-group{display:flex;gap:10px;align-items:flex-end;}
+  .dur-tog{flex:0 0 140px;}
+
+  /* ── IR35 callout ── */
   .ir35-info{margin-bottom:24px;display:none;}
   .ir35-inner{border-left:3px solid var(--brass);background:var(--brass-light);padding:16px 20px;border-radius:0 3px 3px 0;}
   .ir35-badge{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--brass);font-weight:700;margin-bottom:8px;}
   .ir35-inner p{font-size:13.5px;color:var(--ink);line-height:1.6;}
 
-  /* Stamp */
+  /* ── Stamp ── */
   .stamp{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--brass);border:1px solid var(--brass);border-radius:3px;padding:3px 8px;transform:rotate(-1.5deg);margin-bottom:18px;}
 
-  /* Breakdown grid */
+  /* ── Breakdown grid ── */
   .bgrid{display:grid;grid-template-columns:max-content repeat(4,1fr);gap:1px;background:var(--paper-line);border:1px solid var(--paper-line);border-radius:3px;overflow:hidden;}
   .bgrid .cell{background:#FFFEF9;padding:12px 10px;}
   .bgrid .hd{background:var(--ink);color:var(--paper);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;text-align:right;}
   .bgrid .hd.lbl{text-align:left;}
-  .bgrid .rl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);display:flex;align-items:center;}
+  .bgrid .rl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);display:flex;align-items:center;white-space:nowrap;padding-right:16px;}
   .bgrid .num{font-family:'JetBrains Mono',monospace;font-size:14.5px;text-align:right;font-weight:500;}
   .bgrid .gc .num{color:var(--ink);}
   .bgrid .tc .num,.bgrid .nc .num{color:var(--tax-red);}
   .bgrid .xc{background:var(--net-green-light)!important;}
   .bgrid .xc .num{color:var(--net-green);font-weight:600;}
-  /* Contract row — purple/indigo accent */
+  /* Contract row */
   .bgrid .cr{background:var(--contract-light)!important;}
   .bgrid .cr .rl{color:var(--contract);}
   .bgrid .cr .num{color:var(--contract);font-weight:700;}
@@ -77,10 +76,10 @@
   .bgrid .cr.xc{background:var(--contract-light)!important;}
   .bgrid .cr.xc .num{color:var(--contract);}
 
-  /* Mobile hint */
+  /* ── Mobile hint ── */
   .mob-hint{display:none;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);text-align:center;margin:10px 0 4px;}
 
-  /* Summary strip */
+  /* ── Summary strip ── */
   .summary{display:flex;gap:24px;margin-top:20px;padding-top:18px;border-top:1px dashed var(--paper-line);flex-wrap:wrap;}
   .summary>div{flex:1;min-width:120px;}
   .s-lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:4px;}
@@ -89,7 +88,7 @@
   .s-rate .s-val{color:var(--brass);}
   .s-net .s-val{color:var(--net-green);}
 
-  /* Contract summary banner */
+  /* ── Contract banner ── */
   .contract-banner{display:none;background:var(--contract-light);border:1px solid #C5B8E8;border-radius:4px;padding:24px 28px;margin-bottom:28px;}
   .cb-eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--contract);margin-bottom:14px;}
   .cb-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
@@ -99,11 +98,11 @@
   .cb-item.cb-net .cb-value{font-size:32px;}
   .cb-sub{font-size:12px;color:var(--ink-soft);margin-top:14px;font-style:italic;}
 
-  /* Section headings */
+  /* ── Section headings ── */
   h2{font-family:'Spectral',serif;font-size:22px;font-weight:600;margin-bottom:6px;}
   .sub{color:var(--ink-soft);font-size:13.5px;margin-bottom:18px;}
 
-  /* Ladder */
+  /* ── Ladder ── */
   table.ladder{width:100%;border-collapse:collapse;font-size:13px;}
   table.ladder th{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);text-align:right;padding:8px 8px;border-bottom:1px solid var(--ink);}
   table.ladder th:first-child{text-align:left;}
@@ -116,10 +115,11 @@
   table.ladder td.cnet{color:var(--contract);}
   table.ladder td.ded{color:var(--tax-red);}
 
+  /* ── Footer ── */
   footer{margin-top:48px;font-size:12px;color:var(--ink-soft);text-align:center;}
 
   /* ══════════════════════════════════════
-     MOBILE  ≤ 640 px
+     MOBILE  ≤ 640px
   ══════════════════════════════════════ */
   @media(max-width:640px){
     .wrap{padding:20px 14px 60px;}
@@ -129,43 +129,36 @@
     h2{font-size:18px;}
     .card{padding:18px 14px;margin-bottom:18px;}
     .stamp{font-size:9px;white-space:normal;word-break:break-word;max-width:100%;display:block;}
-
-    /* Stack all inputs */
     .input-row{gap:14px;}
     .input-row .field{flex:1 1 100%!important;min-width:0!important;}
     input[type=number]{font-size:20px;}
     .agroup span{font-size:20px;}
     .tog{height:46px;}
-    .tog button{font-size:13px;}
+    .tog button{font-size:12px;}
     .dur-tog{flex:0 0 130px;}
-
-    /* Breakdown: Period | Gross | Net (hide cols 3 & 4) */
+    /* Breakdown: Period | Gross | Net */
     .bgrid{grid-template-columns:max-content 1fr 1fr;}
     .bgrid .cell:nth-child(5n+3),
     .bgrid .cell:nth-child(5n+4){display:none;}
     .bgrid .cell{padding:9px 7px;}
-    .bgrid .num{font-size:13px;}
+    .bgrid .num{font-size:12.5px;}
     .mob-hint{display:block;}
-
     /* Summary 2×2 */
     .summary{gap:12px;}
     .summary>div{flex:1 1 calc(50% - 6px);min-width:calc(50% - 6px);}
     .s-val{font-size:18px;}
     .s-lbl{font-size:10px;}
-
-    /* Contract banner: 2×2 */
+    /* Contract banner 2×2 */
     .contract-banner{padding:18px 14px;}
     .cb-grid{grid-template-columns:1fr 1fr;gap:14px;}
     .cb-item .cb-value{font-size:22px;}
     .cb-item.cb-net .cb-value{font-size:26px;}
-
-    /* Ladder: hide tax & NI, show contract net if present */
+    /* Ladder: hide tax & NI */
     table.ladder th:nth-child(2),table.ladder td:nth-child(2),
     table.ladder th:nth-child(3),table.ladder td:nth-child(3){display:none;}
     table.ladder{font-size:11.5px;}
     table.ladder th,table.ladder td{padding:6px 4px;}
     table.ladder tr.cur td:first-child::after{content:" ◂";}
-
     .ir35-inner{padding:12px 14px;}
     .ir35-inner p{font-size:12.5px;}
     .note,.sub{font-size:12px;}
@@ -179,26 +172,31 @@
 <header>
   <p class="eyebrow">UK Tax Year 2025/26 — England, Wales &amp; Northern Ireland</p>
   <h1>The Ledger</h1>
-  <p>Enter your salary or day rate to see your exact take-home — before and after tax — across every time period. Set a contract duration for a full contract earnings breakdown.</p>
+  <p>Enter your salary, day rate, or hourly rate to see your exact take-home before and after tax — across every time period. Set a contract duration for a full contract earnings breakdown.</p>
 </header>
 
 <!-- ══ Inputs ══ -->
 <div class="card">
   <div class="input-row">
     <div class="field">
-      <label for="salaryInput">Salary / day rate</label>
+      <label for="salaryInput">Amount</label>
       <div class="agroup"><span>£</span><input type="number" id="salaryInput" value="45000" min="0" step="100"></div>
     </div>
-    <div class="field" style="flex:0 0 200px;">
+    <div class="field" style="flex:0 0 240px;">
       <label>This figure is</label>
       <div class="tog">
         <button id="btnAnnual" class="active">Annual</button>
         <button id="btnDaily">Daily</button>
+        <button id="btnHourly">Hourly</button>
       </div>
     </div>
-    <div class="field" style="flex:0 0 165px;">
-      <label for="daysInput">Days worked / week</label>
+    <div class="field" style="flex:0 0 160px;">
+      <label for="daysInput">Days / week</label>
       <div class="agroup"><input type="number" id="daysInput" value="5" min="1" max="7" step="1"></div>
+    </div>
+    <div class="field" style="flex:0 0 160px;" id="hrsField">
+      <label for="hrsInput">Hours / day</label>
+      <div class="agroup"><input type="number" id="hrsInput" value="8" min="1" max="24" step="0.5"></div>
     </div>
     <div class="field" style="flex:0 0 220px;">
       <label>IR35 status</label>
@@ -218,7 +216,7 @@
       </div>
     </div>
   </div>
-  <p class="note" id="daysNote">Daily rate uses a 5-day week (260 working days/yr) to derive an annual salary.</p>
+  <p class="note" id="daysNote"></p>
 </div>
 
 <!-- ══ IR35 callout ══ -->
@@ -231,7 +229,7 @@
 
 <!-- ══ Contract banner ══ -->
 <div class="contract-banner" id="contractBanner">
-  <div class="cb-eyebrow" id="cbEyebrow">Contract total — 26-week contract</div>
+  <div class="cb-eyebrow" id="cbEyebrow">Contract total</div>
   <div class="cb-grid">
     <div class="cb-item">
       <div class="cb-label">Gross earnings</div>
@@ -257,10 +255,10 @@
 <div class="card">
   <div class="stamp" id="stampLine">ANNUAL GROSS — £45,000 — INSIDE IR35</div>
   <h2>Your breakdown</h2>
-  <p class="sub">Gross and take-home across every period. Tax &amp; NI deducted at each level.</p>
+  <p class="sub">Gross and take-home across every period, before and after all deductions.</p>
 
   <div class="bgrid">
-    <!-- headers — 5 cells per row, repeated 6 times (1 header + 5 data rows) -->
+    <!-- 5 cells per row -->
     <div class="cell hd lbl">Period</div>
     <div class="cell hd">Gross</div>
     <div class="cell hd" id="hdCol2">Income tax</div>
@@ -290,7 +288,13 @@
     <div class="cell tc"><div class="num" id="t-daily"></div></div>
     <div class="cell nc"><div class="num" id="n-daily"></div></div>
     <div class="cell xc"><div class="num" id="net-daily"></div></div>
-    <!-- contract row (hidden until duration set) -->
+    <!-- hourly -->
+    <div class="cell rl">Hourly</div>
+    <div class="cell gc"><div class="num" id="g-hourly"></div></div>
+    <div class="cell tc"><div class="num" id="t-hourly"></div></div>
+    <div class="cell nc"><div class="num" id="n-hourly"></div></div>
+    <div class="cell xc"><div class="num" id="net-hourly"></div></div>
+    <!-- contract row (shown when duration set) -->
     <div class="cell cr rl" id="cr-label" style="display:none">—</div>
     <div class="cell cr gc" id="cr-gc" style="display:none"><div class="num" id="g-contract"></div></div>
     <div class="cell cr tc" id="cr-tc" style="display:none"><div class="num" id="t-contract"></div></div>
@@ -323,11 +327,11 @@
 <!-- ══ Ladder ══ -->
 <div class="card">
   <h2>The ladder</h2>
-  <p class="sub" id="ladderSub">Annual salaries in £2,500 steps around your figure, with take‑home at each rung.</p>
+  <p class="sub" id="ladderSub"></p>
   <div style="overflow-x:auto;">
     <table class="ladder">
       <thead><tr>
-        <th id="lhd1">Annual gross</th>
+        <th id="lhd1">Rate</th>
         <th id="lhd2">Income tax</th>
         <th id="lhd3">NI</th>
         <th>Annual net</th>
@@ -341,18 +345,20 @@
 </div>
 
 <footer>
-  Inside IR35: 2025/26 rUK Income Tax bands &amp; Class 1 employee NI rates, standard tax code. Outside IR35: Ltd company model — £12,570 director salary, £1,500 accountancy, all profit taken as dividends, 2025/26 Corporation Tax rates. Contract totals calculated on actual contract earnings (not annualised). Scotland uses different income tax bands. No student loan, pension or other deductions modelled.
+  Inside IR35: 2025/26 rUK Income Tax bands &amp; Class 1 employee NI rates, standard tax code. Outside IR35: Ltd company model — £12,570 director salary, £1,500 accountancy, all profit taken as dividends, 2025/26 Corporation Tax rates. Contract totals calculated on actual contract earnings, not annualised. Scotland uses different income tax bands. No student loan, pension or other deductions modelled.
 </footer>
 </div>
 
 <script>
-// ── Tax constants ─────────────────────────────────────────────────
+// ── Tax constants ──────────────────────────────────────────────────
 const PA=12570,BRT=50270,HRT=125140,NIPT=12570,NIUL=50270;
 const OUT_SAL=12570,OUT_SNI=9100,OUT_ACC=1500,DIVALL=500,CTLOW=50000,CTHIGH=250000;
 
-const gbp = n => '£' + Math.round(n).toLocaleString('en-GB');
+// ── Formatting ─────────────────────────────────────────────────────
+const gbp  = n => '£' + Math.round(n).toLocaleString('en-GB');
+const gbpD = n => '£' + n.toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2});
 
-// ── Inside IR35 ───────────────────────────────────────────────────
+// ── Inside IR35 ────────────────────────────────────────────────────
 function incomeTax(g){
   let al=PA;
   if(g>100000) al=Math.max(0,PA-Math.floor((g-100000)/2));
@@ -374,7 +380,7 @@ function insideCalc(g){
   return{gross:g,tax:t,ni:n,net,rate:g>0?(t+n)/g:0};
 }
 
-// ── Outside IR35 ─────────────────────────────────────────────────
+// ── Outside IR35 ───────────────────────────────────────────────────
 function corpTax(p){
   if(p<=0) return 0;
   if(p<=CTLOW) return p*0.19;
@@ -383,7 +389,7 @@ function corpTax(p){
 }
 function divTax(d){
   if(d<=DIVALL) return 0;
-  const tx=d-DIVALL, basic=(BRT-OUT_SAL)-DIVALL, higher=HRT-BRT;
+  const tx=d-DIVALL,basic=(BRT-OUT_SAL)-DIVALL,higher=HRT-BRT;
   let t=0,r=tx;
   const inB=Math.min(r,basic); t+=inB*0.0875; r-=inB;
   const inH=Math.min(r,higher); t+=inH*0.3375; r-=inH;
@@ -393,175 +399,201 @@ function divTax(d){
 function outsideCalc(rev){
   const empNI=Math.max(0,OUT_SAL-OUT_SNI)*0.138;
   const profit=Math.max(0,rev-OUT_SAL-empNI-OUT_ACC);
-  const ct=corpTax(profit), divs=Math.max(0,profit-ct), dt=divTax(divs);
+  const ct=corpTax(profit),divs=Math.max(0,profit-ct),dt=divTax(divs);
   const net=OUT_SAL+divs-dt;
   return{gross:rev,tax:ct,ni:dt,net,rate:rev>0?(rev-net)/rev:0};
 }
 
 function calc(g){ return ir35==='outside' ? outsideCalc(g) : insideCalc(g); }
 
-function periods(v,w){
-  return{annual:v, monthly:v/12, weekly:v/52, daily:v/w};
+// ── Period breakdown ───────────────────────────────────────────────
+// hpy = hours per year = days_per_week × 52 × hours_per_day
+function periods(v, wdpy, hpy){
+  return{
+    annual:  v,
+    monthly: v/12,
+    weekly:  v/52,
+    daily:   v/wdpy,
+    hourly:  v/hpy
+  };
 }
 
-// ── State ─────────────────────────────────────────────────────────
+// ── State ──────────────────────────────────────────────────────────
 let mode='annual', ir35='inside', durUnit='weeks';
 const $=id=>document.getElementById(id);
 
-// ── Toggle helpers ────────────────────────────────────────────────
-function setTog(a,b,active){ a.classList.toggle('active',a===active); b.classList.toggle('active',b===active); }
+// ── Toggles ────────────────────────────────────────────────────────
+function activateMode(btn){
+  [$('btnAnnual'),$('btnDaily'),$('btnHourly')].forEach(b=>b.classList.toggle('active',b===btn));
+}
+$('btnAnnual').onclick =()=>{ mode='annual';  activateMode($('btnAnnual'));  render(); };
+$('btnDaily').onclick  =()=>{ mode='daily';   activateMode($('btnDaily'));   render(); };
+$('btnHourly').onclick =()=>{ mode='hourly';  activateMode($('btnHourly'));  render(); };
 
-$('btnAnnual').onclick =()=>{ mode='annual';  setTog($('btnAnnual'),$('btnDaily'),$('btnAnnual'));   render(); };
-$('btnDaily').onclick  =()=>{ mode='daily';   setTog($('btnAnnual'),$('btnDaily'),$('btnDaily'));    render(); };
-$('btnInside').onclick =()=>{ ir35='inside';  setTog($('btnInside'),$('btnOutside'),$('btnInside'));  $('ir35Info').style.display='none';  render(); };
-$('btnOutside').onclick=()=>{ ir35='outside'; setTog($('btnInside'),$('btnOutside'),$('btnOutside')); $('ir35Info').style.display='block'; render(); };
-$('btnWeeks').onclick  =()=>{ durUnit='weeks';  setTog($('btnWeeks'),$('btnMonths'),$('btnWeeks'));  render(); };
-$('btnMonths').onclick =()=>{ durUnit='months'; setTog($('btnWeeks'),$('btnMonths'),$('btnMonths')); render(); };
+$('btnInside').onclick =()=>{ ir35='inside';  [$('btnInside'),$('btnOutside')].forEach(b=>b.classList.toggle('active',b===$('btnInside')));  $('ir35Info').style.display='none';  render(); };
+$('btnOutside').onclick=()=>{ ir35='outside'; [$('btnInside'),$('btnOutside')].forEach(b=>b.classList.toggle('active',b===$('btnOutside'))); $('ir35Info').style.display='block'; render(); };
+$('btnWeeks').onclick  =()=>{ durUnit='weeks';  [$('btnWeeks'),$('btnMonths')].forEach(b=>b.classList.toggle('active',b===$('btnWeeks')));  render(); };
+$('btnMonths').onclick =()=>{ durUnit='months'; [$('btnWeeks'),$('btnMonths')].forEach(b=>b.classList.toggle('active',b===$('btnMonths'))); render(); };
 
-$('salaryInput').oninput = $('daysInput').oninput = $('durInput').oninput = render;
+$('salaryInput').oninput=$('daysInput').oninput=$('hrsInput').oninput=$('durInput').oninput=render;
 
-// ── Main render ───────────────────────────────────────────────────
+// ── Helpers ────────────────────────────────────────────────────────
+function getParams(){
+  const raw  = parseFloat($('salaryInput').value)||0;
+  const days = Math.min(7,Math.max(1,parseFloat($('daysInput').value)||5));
+  const hrs  = Math.min(24,Math.max(0.5,parseFloat($('hrsInput').value)||8));
+  const wdpy = days*52;           // working days per year
+  const hpy  = wdpy*hrs;         // working hours per year
+  let ann;
+  if(mode==='daily')  ann = raw*wdpy;
+  else if(mode==='hourly') ann = raw*hpy;
+  else ann = raw;
+  return{raw,days,hrs,wdpy,hpy,ann};
+}
+
+// ── Main render ────────────────────────────────────────────────────
 function render(){
-  const days = Math.min(7, Math.max(1, parseFloat($('daysInput').value)||5));
-  const wdpy = days * 52;
-  $('daysNote').textContent = `Daily rate uses a ${days}-day week (${wdpy} working days/yr) to derive an annual salary.`;
-
-  const raw = parseFloat($('salaryInput').value)||0;
-  const ann = mode==='daily' ? raw*wdpy : raw;
+  const {raw,days,hrs,wdpy,hpy,ann} = getParams();
   const out = ir35==='outside';
 
-  // Annual calc (used for breakdown grid + summary)
-  const b = calc(ann);
-  const g = periods(b.gross, wdpy);
-  const t = periods(b.tax,   wdpy);
-  const n = periods(b.ni,    wdpy);
-  const x = periods(b.net,   wdpy);
+  // Note text
+  const noteMap = {
+    annual:  `Divided by ${wdpy} working days/yr to get daily rate; by ${Math.round(hpy).toLocaleString()} hrs/yr for hourly.`,
+    daily:   `${gbp(raw)}/day × ${wdpy} working days/yr = ${gbp(raw*wdpy)} annual gross.`,
+    hourly:  `${gbpD(raw)}/hr × ${hrs}hrs × ${days} days × 52 weeks = ${gbp(ann)} annual gross.`
+  };
+  $('daysNote').textContent = noteMap[mode];
 
   // Column headers
-  $('hdCol2').textContent  = out ? 'Corp. tax'    : 'Income tax';
-  $('hdCol3').textContent  = out ? 'Dividend tax'  : 'Nat. Insurance';
-  $('sumTaxLbl').textContent = out ? 'Corp. tax (yr)'    : 'Income tax (yr)';
-  $('sumNiLbl').textContent  = out ? 'Dividend tax (yr)' : 'Nat. Insurance (yr)';
+  $('hdCol2').textContent    = out ? 'Corp. tax'       : 'Income tax';
+  $('hdCol3').textContent    = out ? 'Dividend tax'     : 'Nat. Insurance';
+  $('sumTaxLbl').textContent = out ? 'Corp. tax (yr)'   : 'Income tax (yr)';
+  $('sumNiLbl').textContent  = out ? 'Dividend tax (yr)': 'Nat. Insurance (yr)';
 
-  // Breakdown grid
-  ['annual','monthly','weekly','daily'].forEach(p=>{
-    $('g-'+p).textContent   = gbp(g[p]);
-    $('t-'+p).textContent   = '−'+gbp(t[p]);
-    $('n-'+p).textContent   = '−'+gbp(n[p]);
-    $('net-'+p).textContent = gbp(x[p]);
+  // Annual calc
+  const b = calc(ann);
+  const p = periods(b.gross, wdpy, hpy);
+  const t = periods(b.tax,   wdpy, hpy);
+  const n = periods(b.ni,    wdpy, hpy);
+  const x = periods(b.net,   wdpy, hpy);
+
+  // Grid — whole periods use gbp, hourly uses gbpD
+  ['annual','monthly','weekly','daily'].forEach(k=>{
+    $('g-'+k).textContent   = gbp(p[k]);
+    $('t-'+k).textContent   = '−'+gbp(t[k]);
+    $('n-'+k).textContent   = '−'+gbp(n[k]);
+    $('net-'+k).textContent = gbp(x[k]);
   });
+  // Hourly — show 2dp
+  $('g-hourly').textContent   = gbpD(p.hourly);
+  $('t-hourly').textContent   = '−'+gbpD(t.hourly);
+  $('n-hourly').textContent   = '−'+gbpD(n.hourly);
+  $('net-hourly').textContent = gbpD(x.hourly);
 
-  // Summary strip
+  // Summary
   $('sumTax').textContent  = gbp(b.tax);
   $('sumNi').textContent   = gbp(b.ni);
   $('sumRate').textContent = (b.rate*100).toFixed(1)+'%';
   $('sumNet').textContent  = gbp(b.net);
 
   // Stamp
+  const modeLabel = mode==='hourly' ? gbpD(raw)+'/hr' : mode==='daily' ? gbp(raw)+'/day' : '';
   $('stampLine').textContent =
-    (mode==='daily' ? 'Daily rate — '+gbp(raw)+'/day — ' : '') +
-    'Annual gross — '+gbp(ann)+' — '+(out?'Outside IR35':'Inside IR35');
+    (modeLabel ? modeLabel+' — ' : '') +
+    'Annual gross '+gbp(ann)+' — '+(out?'Outside IR35':'Inside IR35');
 
-  // Contract duration
-  renderContract(ann, wdpy, days, out);
-  renderLadder(ann, wdpy, raw);
+  renderContract(ann, wdpy, hpy, days, hrs, out);
+  renderLadder(ann, wdpy, hpy, raw, out);
 }
 
-// ── Contract ──────────────────────────────────────────────────────
-function renderContract(ann, wdpy, daysPerWeek, out){
+// ── Contract ───────────────────────────────────────────────────────
+function renderContract(ann, wdpy, hpy, days, hrs, out){
   const dur = parseFloat($('durInput').value)||0;
-  const crCells = ['cr-label','cr-gc','cr-tc','cr-nc','cr-xc'];
-  const banner  = $('contractBanner');
-  const lhd6    = $('lhd6');
+  const crIds = ['cr-label','cr-gc','cr-tc','cr-nc','cr-xc'];
+  const show  = dur>0;
 
-  if(dur <= 0){
-    crCells.forEach(id=>$(id).style.display='none');
-    banner.style.display='none';
-    lhd6.style.display='none';
-    return;
-  }
+  $('contractBanner').style.display = show ? 'block' : 'none';
+  $('lhd6').style.display           = show ? '' : 'none';
+  crIds.forEach(id=>$(id).style.display = show ? '' : 'none');
+  if(!show) return;
 
-  // Working days in contract
-  const contractDays = durUnit==='weeks'
-    ? dur * daysPerWeek
-    : (dur/12) * wdpy;
-
-  // Contract gross = actual earnings for the contract period
-  // (calc tax on this amount — progressive, not pro-rated from annual)
-  const contractGross = (ann / wdpy) * contractDays;
+  // Contract working days
+  const contractDays = durUnit==='weeks' ? dur*days : (dur/12)*wdpy;
+  const contractGross = (ann/wdpy)*contractDays;
   const cb = calc(contractGross);
 
-  const durLabel = dur + (durUnit==='weeks' ? (dur===1?' week':' weeks') : (dur===1?' month':' months'));
-  const wdLabel  = Math.round(contractDays) + ' working day' + (Math.round(contractDays)===1?'':'s');
+  const durLabel = dur+(durUnit==='weeks'?(dur===1?' week':' weeks'):(dur===1?' month':' months'));
+  const wdLabel  = Math.round(contractDays)+(Math.round(contractDays)===1?' working day':' working days');
 
-  // Contract row in breakdown grid
-  crCells.forEach(id=>$(id).style.display='');
-  $('cr-label').textContent  = durUnit==='weeks' ? dur+'wk' : dur+'mo';
-  $('g-contract').textContent   = gbp(cb.gross);
-  $('t-contract').textContent   = '−'+gbp(cb.tax);
-  $('n-contract').textContent   = '−'+gbp(cb.ni);
-  $('net-contract').textContent = gbp(cb.net);
+  // Contract row in grid
+  $('cr-label').textContent    = durUnit==='weeks' ? dur+'wk' : dur+'mo';
+  $('g-contract').textContent  = gbp(cb.gross);
+  $('t-contract').textContent  = '−'+gbp(cb.tax);
+  $('n-contract').textContent  = '−'+gbp(cb.ni);
+  $('net-contract').textContent= gbp(cb.net);
 
-  // Contract banner
-  banner.style.display = 'block';
-  $('cbEyebrow').textContent = 'Contract total — ' + durLabel;
-  $('cb-gross').textContent  = gbp(cb.gross);
-  $('cb-tax').textContent    = '−'+gbp(cb.tax);
-  $('cb-ni').textContent     = '−'+gbp(cb.ni);
-  $('cb-net').textContent    = gbp(cb.net);
-  $('cb-tax-label').textContent = out ? 'Corp. tax'    : 'Income tax';
-  $('cb-ni-label').textContent  = out ? 'Dividend tax'  : 'Nat. Insurance';
-  $('cbSub').textContent = `${wdLabel} × ${gbp(ann/wdpy)}/day — effective rate ${(cb.rate*100).toFixed(1)}% — tax calculated on actual contract earnings, not annualised`;
-
-  // Show contract net column in ladder
-  lhd6.style.display='';
+  // Banner
+  $('cbEyebrow').textContent   = 'Contract total — '+durLabel;
+  $('cb-gross').textContent    = gbp(cb.gross);
+  $('cb-tax').textContent      = '−'+gbp(cb.tax);
+  $('cb-ni').textContent       = '−'+gbp(cb.ni);
+  $('cb-net').textContent      = gbp(cb.net);
+  $('cb-tax-label').textContent= out?'Corp. tax':'Income tax';
+  $('cb-ni-label').textContent = out?'Dividend tax':'Nat. Insurance';
+  $('cbSub').textContent       = `${wdLabel} — effective rate ${(cb.rate*100).toFixed(1)}% — tax calculated on actual contract earnings, not annualised`;
 }
 
-// ── Ladder ────────────────────────────────────────────────────────
-function renderLadder(ann, wdpy, raw){
+// ── Ladder ─────────────────────────────────────────────────────────
+function renderLadder(ann, wdpy, hpy, raw, out){
   const tbody = $('ladderBody');
-  const out   = ir35==='outside';
   const dur   = parseFloat($('durInput').value)||0;
-  const daysPerWeek = wdpy/52;
-  const contractDays = dur>0 ? (durUnit==='weeks' ? dur*daysPerWeek : (dur/12)*wdpy) : 0;
+  const days  = wdpy/52;
+  const hrs   = hpy/wdpy;
+  const contractDays = dur>0 ? (durUnit==='weeks'?dur*days:(dur/12)*wdpy) : 0;
 
-  $('lhd2').textContent = out ? 'Corp. tax'   : 'Income tax';
-  $('lhd3').textContent = out ? 'Dividend tax' : 'NI';
+  $('lhd2').textContent = out?'Corp. tax':'Income tax';
+  $('lhd3').textContent = out?'Dividend tax':'NI';
   tbody.innerHTML = '';
 
-  function row(label, grossVal, isCur){
-    const b  = calc(grossVal);
+  function buildRow(label, annualGross, isCur){
+    const b  = calc(annualGross);
     const tr = document.createElement('tr');
     if(isCur) tr.className='cur';
-    const contractCell = dur>0
-      ? `<td class="cnet">${gbp((grossVal/wdpy)*contractDays - calc((grossVal/wdpy)*contractDays).tax - calc((grossVal/wdpy)*contractDays).ni)}</td>`
-      : '';
-    // Calculate contract net for this rung properly
-    let contractNetHtml = '';
+    let contractCell='';
     if(dur>0){
-      const cg = (grossVal/wdpy)*contractDays;
+      const cg  = (annualGross/wdpy)*contractDays;
       const cb2 = calc(cg);
-      contractNetHtml = `<td class="cnet">${gbp(cb2.net)}</td>`;
+      contractCell = `<td class="cnet">${gbp(cb2.net)}</td>`;
     }
-    tr.innerHTML = `<td>${label}</td><td class="ded">−${gbp(b.tax)}</td><td class="ded">−${gbp(b.ni)}</td><td class="net">${gbp(b.net)}</td><td class="net">${gbp(b.net/12)}</td>${contractNetHtml}<td>${(b.rate*100).toFixed(1)}%</td>`;
+    tr.innerHTML=`<td>${label}</td><td class="ded">−${gbp(b.tax)}</td><td class="ded">−${gbp(b.ni)}</td><td class="net">${gbp(b.net)}</td><td class="net">${gbp(b.net/12)}</td>${contractCell}<td>${(b.rate*100).toFixed(1)}%</td>`;
     tbody.appendChild(tr);
   }
 
-  if(mode==='daily'){
-    const base = Math.round(raw/50)*50;
-    $('ladderSub').textContent = `Daily rates in £50 steps around your figure${out?' (outside IR35)':''}, with take‑home at each rung.`;
-    $('lhd1').textContent = 'Daily rate';
+  if(mode==='hourly'){
+    // Adaptive increment: ≤£30/hr → £2, ≤£100/hr → £5, else £10
+    const step = raw<=30 ? 2 : raw<=100 ? 5 : 10;
+    const base = Math.round(raw/step)*step;
+    $('ladderSub').textContent = `Hourly rates in £${step} steps around your figure${out?' (outside IR35)':''}, with annual and monthly take‑home at each rung.`;
+    $('lhd1').textContent = 'Hourly rate';
     for(let i=-5;i<=5;i++){
-      const day=base+i*50; if(day<0) continue;
-      row(gbp(day)+'/day', day*wdpy, day===base);
+      const hr=base+i*step; if(hr<=0) continue;
+      buildRow(gbpD(hr)+'/hr', hr*hpy, hr===base);
+    }
+  } else if(mode==='daily'){
+    const base=Math.round(raw/50)*50;
+    $('ladderSub').textContent=`Daily rates in £50 steps around your figure${out?' (outside IR35)':''}, with take‑home at each rung.`;
+    $('lhd1').textContent='Daily rate';
+    for(let i=-5;i<=5;i++){
+      const day=base+i*50; if(day<=0) continue;
+      buildRow(gbp(day)+'/day', day*wdpy, day===base);
     }
   } else {
-    const base = Math.round(ann/2500)*2500;
-    $('ladderSub').textContent = `Annual salaries in £2,500 steps around your figure${out?' (outside IR35)':''}, with take‑home at each rung.`;
-    $('lhd1').textContent = 'Annual gross';
+    const base=Math.round(ann/2500)*2500;
+    $('ladderSub').textContent=`Annual salaries in £2,500 steps around your figure${out?' (outside IR35)':''}, with take‑home at each rung.`;
+    $('lhd1').textContent='Annual gross';
     for(let i=-5;i<=5;i++){
       const val=base+i*2500; if(val<0) continue;
-      row(gbp(val), val, val===base);
+      buildRow(gbp(val), val, val===base);
     }
   }
 }
